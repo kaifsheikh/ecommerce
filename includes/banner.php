@@ -1,73 +1,28 @@
 <main>
 
+<?php
+// include("./config/db.php");
+$query = "SELECT * FROM banners WHERE status = 'active'";
+$result = mysqli_query($conn, $query);
+?>
+
 <div class="banner">
+  <div class="container">
+    <div class="slider-container has-scrollbar">
 
-      <div class="container">
+      <?php while ($row = mysqli_fetch_assoc($result)) { ?>
 
-        <div class="slider-container has-scrollbar">
-
-          <div class="slider-item">
-
-            <img src="/ecommerce/images/banners/banner-2.jpg" alt="women's latest fashion sale" class="banner-img">
-
-            <div class="banner-content">
-
-              <p class="banner-subtitle">Trending item</p>
-
-              <h2 class="banner-title">Women's latest fashion sale</h2>
-
-              <p class="banner-text">
-                starting at &dollar; <b>20</b>.00
-              </p>
-
-              <a href="#" class="banner-btn">Shop now</a>
-
-            </div>
-
+        <div class="slider-item">
+          <img src="<?php echo $row['image']; ?>" class="banner-img" alt="banner">
+          <div class="banner-content">
+            <p class="banner-subtitle"><?php echo $row['subtitle']; ?></p>
+            <h2 class="banner-title"><?php echo $row['title']; ?></h2>
+            <p class="banner-text">starting at &dollar; <b><?php echo $row['price']; ?></b></p>
+            <a href="#" class="banner-btn">Shop now</a>
           </div>
-
-          <div class="slider-item">
-
-            <img src="/ecommerce/images/banners/banner-1.jpg" alt="modern sunglasses" class="banner-img">
-
-            <div class="banner-content">
-
-              <p class="banner-subtitle">Trending accessories</p>
-
-              <h2 class="banner-title">Modern sunglasses</h2>
-
-              <p class="banner-text">
-                starting at &dollar; <b>15</b>.00
-              </p>
-
-              <a href="#" class="banner-btn">Shop now</a>
-
-            </div>
-
-          </div>
-
-          <div class="slider-item">
-
-            <img src="/ecommerce/images/banners/banner-3.jpg" alt="new fashion summer sale" class="banner-img">
-
-            <div class="banner-content">
-
-              <p class="banner-subtitle">Sale Offer</p>
-
-              <h2 class="banner-title">New fashion summer sale</h2>
-
-              <p class="banner-text">
-                starting at &dollar; <b>29</b>.99
-              </p>
-
-              <a href="#" class="banner-btn">Shop now</a>
-
-            </div>
-
-          </div>
-
         </div>
+      <?php } ?>
 
-      </div>
-
+    </div>
+  </div>
 </div>

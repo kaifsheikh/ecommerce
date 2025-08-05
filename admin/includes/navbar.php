@@ -21,11 +21,7 @@
                         <li class="dropdown-item">
                             <a href="./users/users_manage.php">Users Info</a>
                         </li>
-
-                        <li class="dropdown-item">
-                            <a href="./users/admin_approve.php">Users Approval</a>
-                        </li>
-
+    
                     </ul>
                 </li>
 
@@ -51,8 +47,25 @@
                     </ul>
                 </li>
 
+              
+                <!-- Manage Website Features -->
+                <li class="menu-category">
+                    <a href="#" class="menu-title">Web Features</a>
 
+                    <ul class="dropdown-list">
 
+                        <li class="dropdown-item">
+                            <a href="web-banner/update-banner.php">Add Banner</a>
+                        </li>
+                        
+                        <li class="dropdown-item">
+                            <a href="web-banner/view-banners.php">View Banner</a>
+                        </li>
+
+                    </ul>
+                </li>
+  
+                  
             </ul>
         </div>
     </nav>

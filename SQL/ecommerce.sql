@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2025 at 05:52 PM
+-- Generation Time: Aug 05, 2025 at 03:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecommerce`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banners`
+--
+
+CREATE TABLE `banners` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `status` enum('active','inactive') DEFAULT 'active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,8 +90,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category`, `description`, `price`, `discount`, `image1`, `image2`, `rating`) VALUES
-(1, 'Shoes', 'Shoes', 'Hello', 1200.00, 12.00, 'party-wear-1.jpg', 'clothes-1.jpg', 0),
-(2, 'poultry farm', 'fgfgfdgdf', 'xgdfsd', 3499.00, 12.00, '2.jpg', '3.jpg', 0);
+(3, 'Polo Shirt', 'Clothes', 'Description', 3000.00, 12.00, '2.jpg', '3.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -106,6 +121,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `status`, 
 --
 
 --
+-- Indexes for table `banners`
+--
+ALTER TABLE `banners`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -129,6 +150,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `banners`
+--
+ALTER TABLE `banners`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -138,7 +165,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
