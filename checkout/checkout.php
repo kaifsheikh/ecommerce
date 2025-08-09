@@ -139,8 +139,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-3">
+                    <!-- <div class="mt-3">
                         <button type="submit" class="btn btn-success w-100">Place Order</button>
+                    </div> -->
+                    <div class="mt-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-success w-100">Place Order</button>
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary w-100">← Back</a>
                     </div>
                 </div>
             </div>

@@ -1,41 +1,44 @@
 <style>
   /* Desktop styles */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns desktop par */
-  gap: 20px;
-}
-
-/* Mobile styles */
-@media (max-width: 768px) {
   .product-grid {
-    grid-template-columns: repeat(2, 1fr); /* mobile pe 2 column */
-    gap: 10px; /* kam gap */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns desktop par */
+    gap: 20px;
   }
 
-  .showcase img {
-    width: 100%;  /* images responsive banengi */
-    height: auto;
-  }
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      /* mobile pe 2 column */
+      gap: 10px;
+      /* kam gap */
+    }
 
-  .showcase {
-    padding: 5px;
-  }
+    .showcase img {
+      width: 100%;
+      /* images responsive banengi */
+      height: auto;
+    }
 
-  .showcase-title {
-    font-size: 14px;
-  }
+    .showcase {
+      padding: 5px;
+    }
 
-  .price-box .price,
-  .price-box del {
-    font-size: 13px;
-  }
+    .showcase-title {
+      font-size: 14px;
+    }
 
-  .showcase-rating ion-icon {
-    font-size: 14px;
-  }
-}
+    .price-box .price,
+    .price-box del {
+      font-size: 13px;
+    }
 
+    .showcase-rating ion-icon {
+      font-size: 14px;
+    }
+  }
 </style>
 <main>
 
@@ -131,7 +134,15 @@
       <!-- New Products Section -->
       <div class="product-box" id="product-list">
         <?php
-        $query = "SELECT * FROM products ORDER BY id DESC";
+        $query = "
+        SELECT p.*, 
+              ROUND(AVG(o.rating), 1) AS avg_rating
+        FROM products p
+        LEFT JOIN orders o ON p.id = o.product_id
+        GROUP BY p.id
+        ORDER BY p.id DESC
+        ";
+        $result = mysqli_query($conn, $query);
         $result = mysqli_query($conn, $query);
         ?>
 
@@ -170,8 +181,11 @@
                   </a>
 
                   <div class="showcase-rating">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                      <ion-icon name="<?= $i <= $row['rating'] ? 'star' : 'star-outline' ?>"></ion-icon>
+                    <?php
+                    $rating = $row['avg_rating'] ?? 0; // Agar null ho to 0
+                    for ($i = 1; $i <= 5; $i++):
+                    ?>
+                      <ion-icon name="<?= $i <= $rating ? 'star' : 'star-outline' ?>"></ion-icon>
                     <?php endfor; ?>
                   </div>
 

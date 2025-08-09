@@ -52,68 +52,102 @@ if (isset($_POST['add'])) {
 }
 ?>
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Make form wider on large screens */
+        @media (min-width: 992px) {
+            .form-container {
+                max-width: 800px;
+                margin: auto;
+            }
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        /* Mobile adjustments */
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 15px;
+            }
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2 class="mb-4 shadow p-3 text-center">Add New Product</h2>
+            .form-container input,
+            .form-container textarea,
+            .form-container select {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
 
-            <!-- Error or Success Message -->
-            <?php if ($success): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= $success ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
+<div class="container my-5">
+    <div class="form-container p-4 border rounded shadow-lg bg-white">
 
-            <?php if ($error): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?= $error ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
+        <!-- Back Button + Heading -->
+        <div class="position-relative mb-3 text-center">
+            <h4 class="mb-0 text-primary">Add Product</h4>
+            <a href="../dashboard.php"
+                class="btn btn-outline-secondary btn-sm position-absolute top-0 end-0">
+                ← Back
+            </a>
+        </div>
 
-            <form method="post" enctype="multipart/form-data" class="p-4 border rounded shadow bg-light">
-                <div class="mb-3">
-                    <label class="form-label">Product Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter product name" required>
-                </div>
+        <!-- Success -->
+        <?php if ($success): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= $success ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
 
-                <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    <input type="text" name="category" class="form-control" placeholder="Enter category" required>
-                </div>
+        <!-- Error -->
+        <?php if ($error): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= $error ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
 
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
-                </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Product Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter product name" required>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Price (Rs.)</label>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Category</label>
+                <input type="text" name="category" class="form-control" placeholder="Enter category" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Enter product description"></textarea>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Price (Rs.)</label>
                     <input type="number" step="0.01" name="price" class="form-control" placeholder="Enter price" required>
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Discount (%)</label>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Discount (%)</label>
                     <input type="number" step="0.01" name="discount" class="form-control" placeholder="Enter discount" required>
                 </div>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Product Image 1</label>
-                    <input type="file" name="image1" class="form-control" required>
-                </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label fw-semibold">Product Image 1</label>
+                <input type="file" name="image1" class="form-control" required>
+            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Product Image 2</label>
-                    <input type="file" name="image2" class="form-control" required>
-                </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Product Image 2</label>
+                <input type="file" name="image2" class="form-control" required>
+            </div>
 
-                <button type="submit" name="add" class="btn btn-success">Add Product</button>
-            </form>
-
-        </div>
+            <button type="submit" name="add" class="btn btn-primary w-100 py-2 fw-bold">
+                ➕ Add Product
+            </button>
+        </form>
     </div>
 </div>

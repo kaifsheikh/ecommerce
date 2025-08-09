@@ -41,20 +41,37 @@
       .login-mobile {
         display: inline-block;
         margin-top: 10px;
-        /* Optional spacing */
-        /* Example styling */
-        /* color: white; */
-        /* padding: 8px 16px; */
         border-radius: 4px;
         text-align: center;
         text-decoration: none;
       }
     }
+
+    /* Search Code */
+    #searchResults {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    width: 250px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.product-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.product-item:hover {
+    background: #f5f5f5;
+}
+
   </style>
 </head>
 
 <body>
-
   <div class="overlay" data-overlay></div>
 
   <!--
@@ -223,7 +240,7 @@
 
         <!-- Search Functionality -->
         <div class="header-search-container">
-          <form action="includes/search.php" method="GET">
+          <form action="" method="GET">
             <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
 
             <button type="submit" class="search-btn">
@@ -238,16 +255,16 @@
         if (session_status() === PHP_SESSION_NONE) {
           session_start();
         }
-        
+
         if (!isset($_SESSION['user_id'])):
         ?>
-         <!-- Mobile width Login -->
+          <!-- Mobile width Login -->
           <a href="./users/login.php" class="banner-btn login-mobile">
             Login
           </a>
 
-   
-            <!-- <div class="desktop-navigation-menu">
+
+          <!-- <div class="desktop-navigation-menu">
             <ul class="desktop-menu-category-list">
                 <li class="menu-category">
                     <a href="#" class="menu-title">Home</a>
@@ -258,10 +275,10 @@
 
 
         <?php endif; ?>
-      
 
 
-      
+
+
         <!-- Desktop Widht -->
         <?php
         // Start session if not already started
@@ -271,7 +288,7 @@
 
         if (isset($_SESSION['user_id'])):
         ?>
-        <div class="header-user-actions">
+          <div class="header-user-actions">
 
             <!-- Orders Button -->
             <a href="./users/my_orders.php" class="action-btn">
@@ -285,25 +302,25 @@
 
 
       <!-- Mobile Widht Navbar -->
-  <?php
-    if (session_status() === PHP_SESSION_NONE) {
-      session_start();
-    }
-    ?>
-    <?php if (isset($_SESSION['user_id'])): ?>
-      <div class="mobile-bottom-navigation">
+      <?php
+      if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+      }
+      ?>
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <div class="mobile-bottom-navigation">
 
-        <!-- My Order -->
-        <a href="./users/my_orders.php" class="action-btn">
-          <ion-icon name="bag-handle-outline"></ion-icon>
-          <span class="count">0</span>
-        </a>
+          <!-- My Order -->
+          <a href="./users/my_orders.php" class="action-btn">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <span class="count">0</span>
+          </a>
 
-        <!-- Logout -->
-        <a href="./users/logout.php" class="banner-btn">
-          Logout
-        </a>
-      </div>
-  <?php endif; ?>
+          <!-- Logout -->
+          <a href="./users/logout.php" class="banner-btn">
+            Logout
+          </a>
+        </div>
+      <?php endif; ?>
 
   </header>

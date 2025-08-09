@@ -7,12 +7,10 @@ $success = "";
 
 // Form Submit Check
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get and sanitize input
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Validation
     if (empty($name)) {
         $errors[] = "Full name is required.";
     }
@@ -25,20 +23,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Password must be at least 6 characters.";
     }
 
-    // Check if email already exists
     $check = mysqli_query($conn, "SELECT id FROM users WHERE email = '$email'");
     if (mysqli_num_rows($check) > 0) {
         $errors[] = "Email already registered.";
     }
 
-    // If no errors, insert into database
     if (empty($errors)) {
-        
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (name, email, password, status, role) VALUES ('$name', '$email', '$hashedPassword', 'approved', 'user')";
 
-
-        if (mysqli_query($conn, $sql)) { 
+        if (mysqli_query($conn, $sql)) {
             $success = "Registration successful!";
         } else {
             $errors[] = "Database error: " . mysqli_error($conn);
@@ -48,52 +42,123 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php include "../assets/css/bootstrap_files.html"; ?>
+<!DOCTYPE html>
+<html lang="en">
 
-<body class="bg-light">
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow p-4">
-                <h3 class="text-center mb-4">Register</h3>
-                <form method="POST" action="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            background: #f2f2f2;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-                    <!-- Error or Succcess MSG -->
-                    <?php if (!empty($errors)) : ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <ul class="mb-0">
-                                <?php foreach ($errors as $error) : ?>
-                                    <li><?= $error ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php endif; ?>
+        .register-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 15px;
+        }
 
-                    <?php if (!empty($success)) : ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?= $success ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    <?php endif; ?>
+        .register-card {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-                    <div class="mb-3">
-                        <label>Full Name</label>
-                        <input type="text" name="name" class="form-control" required>
+        .register-card h3 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            font-size: 15px;
+            padding: 10px;
+            font-weight: 600;
+        }
+
+        .extra-links {
+            font-size: 13px;
+        }
+
+        .extra-links a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 576px) {
+            .register-card {
+                padding: 25px 20px;
+            }
+
+            .register-card h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-wrapper">
+        <div class="register-card">
+            <h3 class="text-center mb-4">Register</h3>
+            <form method="POST" action="">
+
+                <!-- Error Messages -->
+                <?php if (!empty($errors)) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            <?php foreach ($errors as $error) : ?>
+                                <li><?= $error ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                    <div class="mb-3">
-                        <label>Email Address</label>
-                        <input type="email" name="email" class="form-control" required>
+                <?php endif; ?>
+
+                <!-- Success Message -->
+                <?php if (!empty($success)) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $success ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
-                    <div class="mb-3">
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Register</button>
-                </form>
-                <p class="text-center mt-3">Already registered? <a href="login.php">Login</a></p>
-            </div>
+                <?php endif; ?>
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+
+            <p class="text-center mt-3 extra-links">
+                Already registered? <a href="login.php">Login</a>
+            </p>
         </div>
     </div>
-</div>
+
 </body>
+
 </html>
